@@ -1,23 +1,22 @@
 <template>
-    <div>
-        <input v-model="value" @input="sendData()">
-    </div>
-   
+  <div>
+    <input v-model="value"/>
+    <button @click="sendData()">Search</button>
+  </div>
 </template>
 
 <script>
 export default {
-    name: "Search",
-    data() {
-        return {
-            value : ""
-        }
+  name: "Search",
+  data() {
+    return {
+      value: "",
+    };
+  },
+  methods: {
+    sendData() {
+      this.$emit("input-change", this.value);
     },
-    methods: {
-        sendData() {
-            this.$emit('input-change', this.value)
-        }
-    }
-}
-
+  },
+};
 </script>

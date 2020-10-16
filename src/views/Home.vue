@@ -1,47 +1,41 @@
 <template>
   <div>
-    <Search v-on:input-change="getData($event)"/>
+    <Search v-on:input-change="getData($event)" />
     <div class="weather-post" v-for="item in getWeather.weather" :key="item.id">
       <p>Sity: {{ getWeather.name }}</p>
-      <p>
-        Weather:
-        {{ item.main }}
-      </p>
-      <p>
-        Description:
-        {{ item.description }}
-      </p>
-      <img :src="getImgUrl(item.icon)" />
+      <p>Weather: {{ item.main }}</p>
+      <p>Description: {{ item.description }}</p>
+      <p>Temperature: {{getCelcius}} &#8451; </p>
+      <p><img :src="getImgUrl(item.icon)" /></p>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import Search from "@/components/Search"
+import Search from "@/components/Search";
 
 export default {
   name: "Home",
-    components: {
-    Search
+  components: {
+    Search,
   },
   data() {
     return {
-      datas: ""
-    }
+      inputData: "",
+    };
   },
-  computed: mapGetters(["getWeather", "getLenght"]),
+  computed: mapGetters(["getWeather", "getCelcius"]),
   methods: {
     ...mapActions(["fetcWeather"]),
     getImgUrl(pic) {
       return `http://openweathermap.org/img/wn/${pic}@2x.png`;
     },
-     getData(data){
-      this.datas = data 
-      this.fetcWeather(this.datas);
-    }
+    getData(data) {
+      this.inputData = data;
+      this.fetcWeather(this.inputData);
+    },
   },
-
 };
 </script>
 
